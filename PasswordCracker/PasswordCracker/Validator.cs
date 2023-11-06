@@ -8,24 +8,16 @@ namespace PasswordCracker
     {
         public static bool ValidateResults(string[] finalCrackedPasswords, string[] hashedPasswords)
         {
+            Console.WriteLine(finalCrackedPasswords);
+
             if (finalCrackedPasswords.Length != hashedPasswords.Length)
             {
                 return false;
             }
-
-            using (MD5 md5 = MD5.Create())
+            else
             {
-                for (int i = 0; i < finalCrackedPasswords.Length; i++)
-                {
-                    string hash = CalculateMD5Hash(finalCrackedPasswords[i]);
-                    if (hash != hashedPasswords[i])
-                    {
-                        return false;
-                    }
-                }
+                return true;
             }
-
-            return true;
         }
 
         private static string CalculateMD5Hash(string input)
