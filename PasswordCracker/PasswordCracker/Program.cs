@@ -46,36 +46,36 @@ namespace PasswordCracker
             List<string> crackedPasswords = new List<string>();
 
             foreach (char a in alphabet)
-            foreach (char b in alphabet)
-            foreach (char c in alphabet)
-            foreach (char d in alphabet)
-            foreach (char e in alphabet)
-            {
-                string password = $"{a}{b}{c}{d}{e}";
-                string hash = md5(password);
+                foreach (char b in alphabet)
+                    foreach (char c in alphabet)
+                        foreach (char d in alphabet)
+                            foreach (char e in alphabet)
+                            {
+                                string password = $"{a}{b}{c}{d}{e}";
+                                string hash = md5(password);
 
-                // Compare the generated hash with the hashedPasswords
-                foreach (string hashedPassword in hashedPasswords)
-                {
-                    if (hash == hashedPassword)
-                    {
-                        Console.WriteLine($"Password: {password}, Hash: {hash}");
+                                // Compare the generated hash with the hashedPasswords
+                                /*foreach (string hashedPassword in hashedPasswords)
+                                {*/
+                                    if (hashedPasswords.Contains(hash))
+                                    {
+                                        // This shows the passwords cracked ( comment this out if u want it to run faster )
+                                        // Console.WriteLine($"Password: {password}, Hash: {hash}");
 
-                        // Add the cracked password to the List
-                        crackedPasswords.Add(password);
+                                        // Add the cracked password to the List
+                                        crackedPasswords.Add(password);
 
-                        break;
-                    }
-                }
-            }
+                                        if(crackedPasswords.Count == hashedPasswords.Length) 
+                                            break;
+                                    }
+/*                                }*/
+                            }
 
             // Convert the List to an array if needed
             string[] finalCrackedPasswords = crackedPasswords.ToArray();
 
             // Use this method to test if you managed to correctly crack all the passwords
-            bool passwordsValidated = Validator.ValidateResults(finalCrackedPasswords, hashedPasswords);
-
-            Console.WriteLine($"\nPasswords successfully cracked: {passwordsValidated}");
+            bool passwordsValidated = Validator.ValidateResults(finalCrackedPasswords);
         }
         
     }
